@@ -1,5 +1,3 @@
-require('dotenv').config(); // Load environment variables from .env file
-
 const express = require('express');
 const nodemailer = require('nodemailer');
 
@@ -31,7 +29,7 @@ app.post('/submit-form', (req, res) => {
   // Setup email data
   const mailOptions = {
     from: process.env.FROM_EMAIL,
-    to: process.env.TO_EMAIL, // Your email address where you want to receive messages
+    to: process.env.TO_EMAIL,
     subject: 'New Form Submission',
     text: `
       Name: ${name}
@@ -54,5 +52,5 @@ app.post('/submit-form', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
