@@ -32,15 +32,32 @@ const handler = async (event) => {
     const info = await transporter.sendMail(mailOptions);
     console.log('Email sent: ', info.response);
 
+    // Set CORS headers
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
     // Respond with success message
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({ message: 'Email sent successfully' }),
     };
   } catch (error) {
+    // Set CORS headers
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
     // Respond with error message
     console.error('Error sending email: ', error);
-    return { statusCode: 500, body: JSON.stringify({ error: 'Error sending email' }) };
+    return { 
+      statusCode: 500, 
+      headers,
+      body: JSON.stringify({ error: 'Error sending email' }) 
+    };
   }
 };
 
