@@ -21,3 +21,6 @@ yarn.lock
 
 # Ignore macOS system files
 .DS_Store
+
+# Local Netlify folder
+.netlify
