@@ -39,7 +39,9 @@
                 const response = await fetch('https://form-handler-markhughesqa.netlify.app/.netlify/functions/submit-form', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Headers': 'Content-Type',
                     },
                     body: JSON.stringify(formData)
                 });

@@ -1,6 +1,20 @@
 const nodemailer = require('nodemailer');
 
 const handler = async (event) => {
+  // Check if the request is an OPTIONS preflight request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'OPTIONS, POST' // Add the allowed methods here
+      },
+      body: ''
+    };
+  }
+
+  // Handle the POST request as before
   try {
     // Parse form data from the request body
     const { name, email, message } = JSON.parse(event.body);
@@ -32,32 +46,18 @@ const handler = async (event) => {
     const info = await transporter.sendMail(mailOptions);
     console.log('Email sent: ', info.response);
 
-    // Set CORS headers
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    };
-
     // Respond with success message
     return {
       statusCode: 200,
-      headers,
+      headers: {
+        'Access-Control-Allow-Origin': '*' // Add CORS headers for the actual request
+      },
       body: JSON.stringify({ message: 'Email sent successfully' }),
     };
   } catch (error) {
-    // Set CORS headers
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    };
-
     // Respond with error message
     console.error('Error sending email: ', error);
-    return { 
-      statusCode: 500, 
-      headers,
-      body: JSON.stringify({ error: 'Error sending email' }) 
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: 'Error sending email' }) };
   }
 };
 
