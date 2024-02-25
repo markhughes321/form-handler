@@ -8,7 +8,7 @@ const handler = async (event) => {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'OPTIONS, POST' // Add the allowed methods here
+        'Access-Control-Allow-Methods': 'OPTIONS, POST'
       },
       body: ''
     };
