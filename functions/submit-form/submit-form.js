@@ -17,7 +17,7 @@ const handler = async (event) => {
   // Handle the POST request as before
   try {
     // Parse form data from the request body
-    const { name, email, message } = JSON.parse(event.body);
+    const { name, email, phone, company } = JSON.parse(event.body);
 
     // Create a Nodemailer transporter
     const transporter = nodemailer.createTransport({
@@ -38,7 +38,8 @@ const handler = async (event) => {
       text: `
         Name: ${name}
         Email: ${email}
-        Message: ${message}
+        Phone Number: ${phone}
+        Company: ${company}
       `
     };
 
